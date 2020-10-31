@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 public class MyRunnable implements Runnable {
-    Map<String, String> map;
-    CountDownLatch countDownLatch;
+    final Map<String, String> map;
+    final CountDownLatch countDownLatch;
 
     public MyRunnable(Map<String, String> map, CountDownLatch countDownLatch) {
         this.map = map;

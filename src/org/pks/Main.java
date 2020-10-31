@@ -3,6 +3,8 @@ package org.pks;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
+import static java.lang.System.out;
+
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
@@ -12,7 +14,7 @@ public class Main {
 
         Map<String, String> arrayMap = new ArrayListsMap<>();
 
-        System.out.println(arrayMap);
+        out.println(arrayMap);
 
         for (int i = 0; i < maxThread; i++) {
             Thread thread = new Thread(new MyRunnable(arrayMap, countDownLatch));
@@ -21,8 +23,8 @@ public class Main {
 
         countDownLatch.await();
 
-        System.out.println(arrayMap);
-        System.out.println(arrayMap.size());
+        out.println(arrayMap);
+        out.println(arrayMap.size());
 
     }
 }
