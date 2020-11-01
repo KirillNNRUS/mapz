@@ -57,7 +57,7 @@ public class ArrayListsMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public synchronized V get(Object key) {
+    public V get(Object key) {
         if (isContainKeyInKeys(key)) {
             return getOldValue(key);
         }
