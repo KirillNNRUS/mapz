@@ -65,30 +65,34 @@ public class ArrayListsMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public synchronized V put(K key, V value) {
-        if (!isContainKeyInKeys(key)) {
-            keys.add(key);
-            values.add(value);
-            return null;
-        } else {
-            V oldVal = getOldValue(key);
-            values.set(indexOfKeyInKeys(key), value);
-            return oldVal;
+    public V put(K key, V value) {
+        synchronized (keys) {
+            if (!isContainKeyInKeys(key)) {
+                keys.add(key);
+                values.add(value);
+                return null;
+            } else {
+                V oldVal = getOldValue(key);
+                values.set(indexOfKeyInKeys(key), value);
+                return oldVal;
+            }
         }
     }
 
     @Override
     public synchronized V remove(Object key) {
-        if (!isContainKeyInKeys(key)) {
-            return null;
-        } else {
-            V oldVal = getOldValue(key);
-            var indexForRemove = indexOfKeyInKeys(key);
-            keys.remove(indexForRemove);
-            keys.trimToSize();
-            values.remove(indexForRemove);
-            values.trimToSize();
-            return oldVal;
+        synchronized (keys) {
+            if (!isContainKeyInKeys(key)) {
+                return null;
+            } else {
+                V oldVal = getOldValue(key);
+                var indexForRemove = indexOfKeyInKeys(key);
+                keys.remove(indexForRemove);
+                keys.trimToSize();
+                values.remove(indexForRemove);
+                values.trimToSize();
+                return oldVal;
+            }
         }
     }
 
